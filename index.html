@@ -228,7 +228,7 @@
         // remove the thinking message
         const last = [...chatwindow.querySelectorAll('.msg.bot')].pop(); if(last && last.textContent === 'Giznoz is thinking...') last.remove();
         // create a simple canned reply based on keywords
-        let reply = 'Here is a quick suggestion: try breaking the task into smaller steps.';
+        let reply = 'Okay! What do you want me to generate?';
         if(/nav|navbar|menu/i.test(v)) reply = 'Try using a <nav> with flexbox and a mobile hamburger — I can generate the HTML if you want.';
         if(/prompt|image|art/i.test(v)) reply = 'For images: include style, mood, artist references, and color palette — I can craft a prompt template.';
         if(/code|js|javascript|python/i.test(v)) reply = 'I can generate a complete snippet — tell me the language and constraints.';
