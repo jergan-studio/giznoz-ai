@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Giznoz AI — Smart assistant for creators</title>
+  <meta name="description" content="Giznoz AI — lightweight, privacy-first assistant for developers, creators and teams." />
+  <meta name="theme-color" content="#0f172a">
+  <style>
+    :root{
+      --bg:#071029;
+      --card:#0b1220;
+      --muted:#94a3b8;
+      --accent1:linear-gradient(135deg,#7c3aed 0%,#06b6d4 100%);
+      --glass: rgba(255,255,255,0.03);
+      --radius:14px;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:radial-gradient(1000px 500px at 10% 10%, rgba(7,18,41,0.9), transparent), var(--bg);color:#e6eef8}
+    a{color:inherit}
+    .container{max-width:1100px;margin:0 auto;padding:36px}
+
+    header{display:flex;align-items:center;justify-content:space-between;margin-bottom:28px}
+    .brand{display:flex;gap:12px;align-items:center}
+    .logo{width:48px;height:48px;background:var(--glass);display:grid;place-items:center;border-radius:12px;box-shadow:0 4px 30px rgba(2,6,23,0.7);}
+    .logo svg{width:28px;height:28px}
+    nav{display:flex;gap:18px;align-items:center}
+    .btn{background:var(--accent1);padding:10px 14px;border-radius:10px;font-weight:600;color:#021026;text-decoration:none}
+    .muted{color:var(--muted);font-size:15px}
+
+    .hero{display:grid;grid-template-columns:1fr 420px;gap:28px;align-items:center;margin-top:18px}
+    .hero h1{font-size:38px;margin:0 0 8px;line-height:1.02}
+    .sub{color:var(--muted);margin-bottom:18px}
+    .features{display:flex;gap:10px;flex-wrap:wrap}
+    .feature{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:10px 12px;border-radius:12px;font-size:14px}
+
+    /* card */
+    .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:18px;border-radius:16px;box-shadow:0 6px 24px rgba(2,6,23,0.55)}
+
+    /* chat mock */
+    .chat{display:flex;flex-direction:column;height:420px}
+    .chat-window{flex:1;overflow:auto;padding:12px;display:flex;flex-direction:column;gap:8px}
+    .msg{max-width:85%;padding:10px 12px;border-radius:12px}
+    .user{align-self:flex-end;background:linear-gradient(180deg,#0ea5a3,#0284c7);color:#021026}
+    .bot{align-self:flex-start;background:rgba(255,255,255,0.03);color:#e6eef8}
+    .chat-input{display:flex;gap:8px;margin-top:12px}
+    input[type=text]{flex:1;padding:10px 12px;border-radius:12px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit}
+    button.send{background:var(--accent1);border:none;padding:10px 14px;border-radius:12px;font-weight:600;color:#021026}
+
+    /* sections */
+    section{margin-top:36px}
+    .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+
+    footer{margin-top:48px;border-top:1px solid rgba(255,255,255,0.03);padding-top:20px;display:flex;justify-content:space-between;align-items:center}
+
+    /* responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .grid3{grid-template-columns:1fr}
+      .chat{height:340px}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="brand">
+        <div class="logo" aria-hidden>
+          <!-- Giznoz mark -->
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><rect x="2" y="2" width="20" height="20" rx="6" fill="url(#g)"/></svg>
+        </div>
+        <div>
+          <div style="font-weight:700">Giznoz AI</div>
+          <div class="muted" style="font-size:13px">Smart assistant for creators</div>
+        </div>
+      </div>
+      <nav>
+        <a class="muted" href="#features">Features</a>
+        <a class="muted" href="#pricing">Pricing</a>
+        <a class="muted" href="#faq">FAQ</a>
+        <a class="btn" href="#signup">Get Giznoz</a>
+      </nav>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div>
+          <h1>Giznoz AI — Assist, generate, and prototype faster.</h1>
+          <p class="sub">A lightweight, private-first assistant tailored to creators, devs and small teams. Ship drafts, code snippets, art prompts, and product ideas — all from one clean interface.</p>
+
+          <div class="features" aria-hidden>
+            <div class="feature">⚡ Instant code & snippets</div>
+            <div class="feature">🔒 Local-first privacy</div>
+            <div class="feature">🎨 Prompt studio</div>
+            <div class="feature">📄 Docs & summaries</div>
+            <div class="feature">🤝 Team spaces</div>
+          </div>
+
+          <div style="margin-top:18px;display:flex;gap:10px">
+            <a class="btn" href="#signup">Start free</a>
+            <a class="muted" href="#demo">See demo</a>
+          </div>
+
+          <div style="margin-top:18px;color:var(--muted);font-size:14px">Used by creators at small studios, indie teams and hobbyists.</div>
+        </div>
+
+        <aside>
+          <div class="card">
+            <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:12px">
+              <div style="font-weight:700">Live demo</div>
+              <div class="muted" style="font-size:13px">v0.9 beta</div>
+            </div>
+
+            <div class="chat" id="chat">
+              <div class="chat-window" id="chatwindow" aria-live="polite">
+                <div class="msg bot">Hi — I'm Giznoz. Ask me to generate a snippet, idea, or prompt.</div>
+              </div>
+
+              <div class="chat-input">
+                <input id="userinput" type="text" placeholder="Ask Giznoz: e.g. 'Create a responsive navbar'" />
+                <button class="send" id="sendBtn">Send</button>
+              </div>
+            </div>
+
+          </div>
+        </aside>
+      </div>
+
+      <section id="features">
+        <div class="grid3">
+          <div class="card">
+            <h3>Code-friendly</h3>
+            <p class="muted">Generate language-specific snippets, refactors, or explainers with a single prompt. Ideal for quick prototyping.</p>
+          </div>
+          <div class="card">
+            <h3>Privacy first</h3>
+            <p class="muted">Team-owned data, optional local processing, and easy export. Keep sensitive prompts off the cloud if you want.</p>
+          </div>
+          <div class="card">
+            <h3>Prompt studio</h3>
+            <p class="muted">Create, version, and share prompt templates. Store best-performing prompts for reuse across projects.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="signup">
+        <div style="display:flex;gap:18px;align-items:center;margin-top:16px;flex-wrap:wrap">
+          <div style="flex:1;min-width:260px">
+            <h3>Get early access</h3>
+            <p class="muted">Join the waitlist for beta access, updates, and free credits.</p>
+            <form id="signupForm" class="card" onsubmit="return false;">
+              <label class="muted" for="email">Email</label>
+              <input id="email" name="email" type="email" placeholder="you@studio.com" style="width:100%;margin-top:8px;margin-bottom:10px;padding:10px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:transparent;color:inherit" required />
+              <div style="display:flex;gap:8px">
+                <button id="joinBtn" class="btn">Join waitlist</button>
+                <button id="demoBtn" class="muted" style="background:transparent;border:none;padding:10px;border-radius:10px">Request demo</button>
+              </div>
+            </form>
+            <div id="signupMsg" class="muted" style="margin-top:8px"></div>
+          </div>
+
+          <div style="width:360px;min-width:260px">
+            <div class="card">
+              <h4 style="margin:0 0 8px">Why creators choose Giznoz</h4>
+              <ul class="muted">
+                <li>Fast, focused outputs</li>
+                <li>Exportable prompt templates</li>
+                <li>Team and solo modes</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pricing">
+        <h3>Pricing</h3>
+        <div class="grid3" style="margin-top:12px">
+          <div class="card">
+            <strong>Free</strong>
+            <p class="muted">Starter tier — limited messages, community support.</p>
+          </div>
+          <div class="card">
+            <strong>Pro</strong>
+            <p class="muted">Team-friendly features, private prompts, priority support.</p>
+          </div>
+          <div class="card">
+            <strong>Enterprise</strong>
+            <p class="muted">SLA, on-prem options, custom integrations.</p>
+          </div>
+        </div>
+      </section>
+
+      <section id="faq">
+        <h3>FAQ</h3>
+        <div style="display:grid;gap:10px;margin-top:8px">
+          <details class="card"><summary><strong>Is Giznoz free?</strong></summary><div class="muted" style="margin-top:8px">There is a free tier for hobbyists; paid tiers unlock more usage and team features.</div></details>
+          <details class="card"><summary><strong>Can I host Giznoz locally?</strong></summary><div class="muted" style="margin-top:8px">Yes — self-host and local-processing options are planned for Pro/Enterprise customers.</div></details>
+        </div>
+      </section>
+
+    </main>
+
+    <footer>
+      <div class="muted">© "Giznoz AI" — Built with care</div>
+      <div class="muted">Follow us — <a class="muted" href="#">Twitter</a> · <a class="muted" href="#">GitHub</a></div>
+    </footer>
+
+  </div>
+
+  <script>
+    // Simple local demo behavior: mock responses and signup handling.
+    const chatwindow = document.getElementById('chatwindow');
+    const userinput = document.getElementById('userinput');
+    document.getElementById('sendBtn').addEventListener('click',sendMsg);
+    userinput.addEventListener('keydown', e => { if(e.key === 'Enter') sendMsg(); });
+
+    function appendMsg(text, cls){
+      const d = document.createElement('div'); d.className = 'msg ' + cls; d.textContent = text; chatwindow.appendChild(d); chatwindow.scrollTop = chatwindow.scrollHeight;
+    }
+
+    function sendMsg(){
+      const v = userinput.value.trim(); if(!v) return;
+      appendMsg(v,'user'); userinput.value='';
+      // mock thinking
+      appendMsg('Giznoz is thinking...','bot');
+      setTimeout(()=>{
+        // remove the thinking message
+        const last = [...chatwindow.querySelectorAll('.msg.bot')].pop(); if(last && last.textContent === 'Giznoz is thinking...') last.remove();
+        // create a simple canned reply based on keywords
+        let reply = 'Here is a quick suggestion: try breaking the task into smaller steps.';
+        if(/nav|navbar|menu/i.test(v)) reply = 'Try using a <nav> with flexbox and a mobile hamburger — I can generate the HTML if you want.';
+        if(/prompt|image|art/i.test(v)) reply = 'For images: include style, mood, artist references, and color palette — I can craft a prompt template.';
+        if(/code|js|javascript|python/i.test(v)) reply = 'I can generate a complete snippet — tell me the language and constraints.';
+        appendMsg(reply,'bot');
+      },700);
+    }
+
+    // Signup handling
+    document.getElementById('joinBtn').addEventListener('click', ()=>{
+      const email = document.getElementById('email').value.trim();
+      const msg = document.getElementById('signupMsg');
+      if(!email) { msg.textContent = 'Please enter an email.'; return; }
+      msg.textContent = 'Thanks — you\'re on the list!';
+      // NOTE: this is a demo. Wire to your backend to persist.
+    });
+
+    document.getElementById('demoBtn').addEventListener('click', ()=>{ alert('Request recorded (demo).'); });
+  </script>
+</body>
+</html>
