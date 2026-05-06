@@ -1,180 +1,46 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Rocker — Simple Canvas Game</title>
-  <style>
-    :root{ --bg:#071029; --fg:#e6eef8; --accent:#06b6d4; }
-    html,body{height:100%;margin:0;background:var(--bg);color:var(--fg);font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial;}
-    .wrap{max-width:900px;margin:28px auto;padding:16px;}
-    h1{margin:0 0 12px;font-size:20px}
-    canvas{display:block;margin:12px 0;border-radius:8px;background:#071a2b;box-shadow:0 10px 30px rgba(0,0,0,0.5)}
-    .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
-    .btn{background:var(--accent);border:none;color:#012;padding:8px 10px;border-radius:8px;font-weight:700;cursor:pointer}
-    .info{color:#9fb6c9;font-size:14px}
-    footer{margin-top:12px;color:#7f9fb0;font-size:13px}
-  </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Giznoz AI</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="wrap">
-    <h1>Rocker — simple one-button runner</h1>
-    <div class="row">
-      <button id="startBtn" class="btn">Start</button>
-      <div class="info">Use <strong>Space</strong> to jump. Survive as long as you can.</div>
-    </div>
-    <canvas id="game" width="800" height="360" aria-label="Rocker game canvas"></canvas>
-    <div class="row" style="justify-content:space-between;align-items:center">
-      <div class="info">Score: <span id="score">0</span></div>
-      <div class="info">Best: <span id="best">0</span></div>
-    </div>
-    <footer>Made with ❤️ — Rocker (demo)</footer>
+
+<div id="app">
+
+  <!-- LOGIN -->
+  <div id="login-screen">
+    <h1>Giznoz AI</h1>
+
+    <form id="login-form">
+      <input id="login-name" placeholder="Username" required />
+      <input id="login-pass" type="password" placeholder="Password" required />
+      <button type="submit">Enter</button>
+    </form>
+
+    <button id="skip-login-btn">Skip</button>
   </div>
 
-  <script>
-    // Simple runner: player is a square that jumps; obstacles come from right.
-    const canvas = document.getElementById('game');
-    const ctx = canvas.getContext('2d');
-    const startBtn = document.getElementById('startBtn');
-    const scoreEl = document.getElementById('score');
-    const bestEl = document.getElementById('best');
+  <!-- CHAT -->
+  <div id="chat-screen" class="hidden">
 
-    let W = canvas.width, H = canvas.height;
-    let running = false, score = 0, best = Number(localStorage.getItem('rocker_best')||0);
+    <div id="topbar">
+      <span id="user-pill">Guest</span>
+    </div>
 
-    bestEl.textContent = best;
+    <div id="messages"></div>
 
-    // Player
-    const player = {
-      x: 80, y: H - 60, w: 34, h: 34,
-      dy: 0, gravity: 0.9, jumpPower: -15, grounded: true
-    };
+    <form id="input-form">
+      <input id="chat-input" placeholder="Message..." autocomplete="off"/>
+      <button id="send-btn">Send</button>
+    </form>
 
-    // Obstacles
-    let obstacles = [];
-    let spawnTimer = 0;
-    let speed = 5;
+  </div>
 
-    function reset(){
-      running = true;
-      score = 0;
-      obstacles = [];
-      spawnTimer = 0;
-      speed = 5;
-      player.y = H - 60;
-      player.dy = 0;
-      player.grounded = true;
-      scoreEl.textContent = score;
-    }
+</div>
 
-    function spawnObstacle(){
-      const h = 30 + Math.random()*40;
-      obstacles.push({x: W + 20, y: H - 40 - (h-30), w: 18 + Math.random()*18, h: h});
-    }
-
-    function rectsCollide(a,b){
-      return a.x < b.x + b.w && a.x + a.w > b.x && a.y < b.y + b.h && a.y + a.h > b.y;
-    }
-
-    function update(){
-      if(!running) return;
-      // physics
-      player.dy += player.gravity;
-      player.y += player.dy;
-      if(player.y + player.h >= H - 26){ player.y = H - 26 - player.h; player.dy = 0; player.grounded = true; }
-
-      // obstacles
-      spawnTimer--;
-      if(spawnTimer <= 0){
-        spawnObstacle();
-        spawnTimer = 60 + Math.floor(Math.random()*80) - Math.floor(score/100); // faster over time
-        if(spawnTimer < 20) spawnTimer = 20;
-      }
-      for(let i = obstacles.length-1; i >= 0; i--){
-        obstacles[i].x -= speed;
-        if(obstacles[i].x + obstacles[i].w < -50) obstacles.splice(i,1);
-        // collision
-        if(rectsCollide(player, obstacles[i])){
-          gameOver();
-        }
-      }
-
-      // scoring
-      score++;
-      if(score % 50 === 0) { speed += 0.2; } // ramp difficulty
-      scoreEl.textContent = score;
-    }
-
-    function draw(){
-      // clear
-      ctx.clearRect(0,0,W,H);
-
-      // ground
-      ctx.fillStyle = '#05202b';
-      ctx.fillRect(0, H-26, W, 26);
-
-      // player
-      ctx.fillStyle = '#06b6d4';
-      ctx.fillRect(player.x, Math.round(player.y), player.w, player.h);
-      // rocking effect
-      ctx.fillStyle = '#014652';
-      ctx.fillRect(player.x+2, Math.round(player.y)+player.h-6, player.w-4, 4);
-
-      // obstacles
-      ctx.fillStyle = '#e06a6a';
-      obstacles.forEach(o => {
-        ctx.fillRect(Math.round(o.x), Math.round(o.y), o.w, o.h);
-      });
-
-      // HUD small
-      ctx.fillStyle = '#9fb6c9';
-      ctx.font = '12px ui-sans-serif';
-      ctx.fillText('Rocker', 10, 18);
-    }
-
-    function loop(){
-      update();
-      draw();
-      if(running) requestAnimationFrame(loop);
-    }
-
-    function jump(){
-      if(!running) { reset(); loop(); return; }
-      if(player.grounded){
-        player.dy = player.jumpPower;
-        player.grounded = false;
-      }
-    }
-
-    function gameOver(){
-      running = false;
-      startBtn.textContent = 'Restart';
-      if(score > best){ best = score; localStorage.setItem('rocker_best', best); bestEl.textContent = best; }
-      // tiny flash effect
-      ctx.fillStyle = 'rgba(0,0,0,0.35)';
-      ctx.fillRect(0,0,W,H);
-      ctx.fillStyle = '#fff';
-      ctx.font = '20px ui-sans-serif';
-      ctx.fillText('Game Over — Score: ' + score, 12, H/2 - 10);
-    }
-
-    // input
-    document.addEventListener('keydown', (e)=>{
-      if(e.code === 'Space'){ e.preventDefault(); jump(); }
-    });
-    canvas.addEventListener('mousedown', ()=> jump());
-    startBtn.addEventListener('click', ()=>{
-      if(!running){ reset(); loop(); startBtn.textContent = 'Playing...'; }
-    });
-
-    // responsive canvas scaling
-    function resize(){
-      const scale = Math.min(window.innerWidth - 40, 900);
-      const el = document.querySelector('.wrap');
-      el.style.maxWidth = scale + 'px';
-    }
-    window.addEventListener('resize', resize);
-    resize();
-  </script>
+<script src="app.js"></script>
 </body>
 </html>
